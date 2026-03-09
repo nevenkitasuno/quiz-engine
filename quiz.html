@@ -8,11 +8,12 @@
   </head>
   <body>
     <main class="container">
-      <p><a class="back-link" href="./index.html">← Back to quiz catalog</a></p>
+      <div class="topbar" data-language-switcher></div>
+      <p><a class="back-link" href="./index.html" data-i18n="backToCatalog">← Back to folders</a></p>
 
       <section class="panel">
         <div id="quiz-header">
-          <p class="eyebrow">Quiz</p>
+          <p class="eyebrow" data-i18n="quizEyebrow">Quiz</p>
           <h1 id="quiz-title">Loading...</h1>
           <p id="quiz-date" class="subtitle"></p>
         </div>
@@ -22,7 +23,7 @@
         <form id="quiz-form" hidden>
           <div id="quiz-questions" class="quiz-questions"></div>
           <div class="submit-row">
-            <button class="primary-button" type="submit">Finish quiz</button>
+            <button class="primary-button" type="submit" data-i18n="finishQuiz">Finish quiz</button>
           </div>
         </form>
 
@@ -30,6 +31,8 @@
       </section>
     </main>
 
+    <script src="./translations.js" defer></script>
+    <script src="./i18n.js" defer></script>
     <script src="./quiz.js" defer></script>
   </body>
 </html>

@@ -8,43 +8,46 @@
   </head>
   <body>
     <main class="container">
+      <div class="topbar" data-language-switcher></div>
       <header class="page-header">
         <div>
-          <p class="eyebrow">Static quiz website</p>
-          <h1>Quiz Folders</h1>
-          <p class="subtitle">Browse quiz folders from text files, then open a folder to see its quizzes.</p>
+          <p class="eyebrow" data-i18n="siteEyebrow">Static quiz website</p>
+          <h1 data-i18n="indexTitle">Quiz Folders</h1>
+          <p class="subtitle" data-i18n="indexSubtitle">Browse quiz folders from text files, then open a folder to see its quizzes.</p>
         </div>
       </header>
 
       <section class="panel controls controls--single">
         <label class="field">
-          <span>Search folders by name</span>
-          <input id="search-input" type="search" placeholder="Type part of a folder name" />
+          <span data-i18n="searchFoldersLabel">Search folders by name</span>
+          <input id="search-input" type="search" data-i18n-placeholder="searchFoldersPlaceholder" placeholder="Type part of a folder name" />
         </label>
       </section>
 
       <section class="panel">
         <div class="table-meta">
           <p id="results-summary">Loading folders...</p>
-          <button id="reset-filters" class="secondary-button" type="button">Reset search</button>
+          <button id="reset-filters" class="secondary-button" type="button" data-i18n="resetSearch">Reset search</button>
         </div>
 
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Folder</th>
-                <th>Quizzes</th>
+                <th data-i18n="folderColumn">Folder</th>
+                <th data-i18n="quizzesColumn">Quizzes</th>
               </tr>
             </thead>
             <tbody id="folder-table-body"></tbody>
           </table>
         </div>
 
-        <p id="empty-state" class="empty-state" hidden>No folders match the current search.</p>
+        <p id="empty-state" class="empty-state" hidden data-i18n="noFolders">No folders match the current search.</p>
       </section>
     </main>
 
+    <script src="./translations.js" defer></script>
+    <script src="./i18n.js" defer></script>
     <script src="./main.js" defer></script>
   </body>
 </html>

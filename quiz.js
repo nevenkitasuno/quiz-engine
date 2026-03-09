@@ -4,22 +4,24 @@ const quizError = document.querySelector("#quiz-error");
 const quizForm = document.querySelector("#quiz-form");
 const quizQuestions = document.querySelector("#quiz-questions");
 const quizResults = document.querySelector("#quiz-results");
+let currentQuiz = null;
+let lastResult = null;
 
 async function loadQuiz() {
   const params = new URLSearchParams(window.location.search);
   const file = params.get("file");
 
   if (!file) {
-    throw new Error("Missing quiz file parameter.");
+    throw new Error(window.I18n.t("missingQuizFileParameter"));
   }
 
   if (file.includes("..")) {
-    throw new Error("Invalid quiz path.");
+    throw new Error(window.I18n.t("invalidQuizPath"));
   }
 
   const response = await fetch(`./quizzes/${file}`, { cache: "no-store" });
   if (!response.ok) {
-    throw new Error("Unable to load the selected quiz.");
+    throw new Error(window.I18n.t("loadSelectedQuizError"));
   }
 
   return parseQuiz(await response.text());
@@ -31,7 +33,7 @@ function parseQuiz(text) {
   const rawDate = lines[1]?.trim();
 
   if (!name || !rawDate) {
-    throw new Error("Quiz file is missing name or date.");
+    throw new Error(window.I18n.t("quizMissingNameOrDate"));
   }
 
   const questions = [];
@@ -53,7 +55,7 @@ function parseQuiz(text) {
     while (index < lines.length && lines[index].trim() !== "") {
       const line = lines[index];
       if (!line.startsWith("+") && !line.startsWith("-")) {
-        throw new Error(`Invalid answer line: ${line}`);
+        throw new Error(window.I18n.t("invalidAnswerLine", { line }));
       }
 
       answers.push({
@@ -64,14 +66,14 @@ function parseQuiz(text) {
     }
 
     if (answers.length === 0) {
-      throw new Error(`Question "${prompt}" has no answers.`);
+      throw new Error(window.I18n.t("questionHasNoAnswers", { question: prompt }));
     }
 
     questions.push({ prompt, answers });
   }
 
   if (questions.length === 0) {
-    throw new Error("Quiz contains no questions.");
+    throw new Error(window.I18n.t("quizContainsNoQuestions"));
   }
 
   return {
@@ -83,9 +85,10 @@ function parseQuiz(text) {
 }
 
 function renderQuiz(quiz) {
-  document.title = `${quiz.name} | Take Quiz`;
+  currentQuiz = quiz;
+  document.title = window.I18n.t("quizPageTitle", { name: quiz.name });
   quizTitle.textContent = quiz.name;
-  quizDate.textContent = `Date: ${quiz.displayDate}`;
+  quizDate.textContent = window.I18n.t("datePrefix", { date: quiz.displayDate });
 
   quizQuestions.innerHTML = quiz.questions
     .map(
@@ -151,7 +154,7 @@ function handleSubmit(event, quiz) {
     });
 
     status.hidden = false;
-    status.textContent = isCorrect ? "Correct" : "Wrong";
+    status.textContent = isCorrect ? window.I18n.t("correct") : window.I18n.t("wrong");
     status.classList.toggle("correct", isCorrect);
     status.classList.toggle("wrong", !isCorrect);
 
@@ -161,10 +164,24 @@ function handleSubmit(event, quiz) {
   });
 
   const totalQuestions = quiz.questions.length;
+  lastResult = { correctCount, totalQuestions };
   quizResults.hidden = false;
+  renderResults();
+}
+
+function renderResults() {
+  if (!lastResult) {
+    return;
+  }
+
   quizResults.innerHTML = `
-    <h2>Result</h2>
-    <p>You answered ${correctCount} of ${totalQuestions} question${totalQuestions === 1 ? "" : "s"} correctly.</p>
+    <h2>${escapeHtml(window.I18n.t("resultTitle"))}</h2>
+    <p>${escapeHtml(
+      window.I18n.t("resultSummary", {
+        count: lastResult.correctCount,
+        total: lastResult.totalQuestions,
+      }),
+    )}</p>
   `;
 }
 
@@ -177,10 +194,30 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+window.I18n.init();
+window.addEventListener("languagechange", () => {
+  if (currentQuiz) {
+    document.title = window.I18n.t("quizPageTitle", { name: currentQuiz.name });
+    quizDate.textContent = window.I18n.t("datePrefix", { date: currentQuiz.displayDate });
+  }
+
+  quizQuestions.querySelectorAll(".question-status").forEach((status) => {
+    if (status.hidden) {
+      return;
+    }
+
+    status.textContent = status.classList.contains("correct")
+      ? window.I18n.t("correct")
+      : window.I18n.t("wrong");
+  });
+
+  renderResults();
+});
+
 loadQuiz()
   .then(renderQuiz)
   .catch((error) => {
-    quizTitle.textContent = "Quiz unavailable";
+    quizTitle.textContent = window.I18n.t("quizUnavailable");
     quizDate.textContent = "";
     quizError.hidden = false;
     quizError.textContent = error.message;

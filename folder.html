@@ -8,13 +8,14 @@
   </head>
   <body>
     <main class="container">
-      <p><a class="back-link" href="./index.html">← Back to folders</a></p>
+      <div class="topbar" data-language-switcher></div>
+      <p><a class="back-link" href="./index.html" data-i18n="backToFolders">← Back to folders</a></p>
 
       <header class="page-header">
         <div>
-          <p class="eyebrow">Quiz folder</p>
+          <p class="eyebrow" data-i18n="folderEyebrow">Quiz folder</p>
           <h1 id="folder-title">Loading...</h1>
-          <p class="subtitle">Filter quizzes by name and date, then start any quiz.</p>
+          <p class="subtitle" data-i18n="folderSubtitle">Filter quizzes by name and date, then start any quiz.</p>
         </div>
       </header>
 
@@ -23,25 +24,25 @@
       <section id="folder-content" hidden>
         <section class="panel controls">
           <label class="field">
-            <span>Search by name</span>
-            <input id="search-input" type="search" placeholder="Type part of a quiz name" />
+            <span data-i18n="searchByName">Search by name</span>
+            <input id="search-input" type="search" data-i18n-placeholder="searchQuizzesPlaceholder" placeholder="Type part of a quiz name" />
           </label>
 
           <label class="field">
-            <span>From date</span>
+            <span data-i18n="fromDate">From date</span>
             <input id="date-from" type="date" />
           </label>
 
           <label class="field">
-            <span>To date</span>
+            <span data-i18n="toDate">To date</span>
             <input id="date-to" type="date" />
           </label>
 
           <label class="field">
-            <span>Sort by date</span>
+            <span data-i18n="sortByDate">Sort by date</span>
             <select id="sort-order">
-              <option value="desc">Newest first</option>
-              <option value="asc">Oldest first</option>
+              <option value="desc" data-i18n="newestFirst">Newest first</option>
+              <option value="asc" data-i18n="oldestFirst">Oldest first</option>
             </select>
           </label>
         </section>
@@ -49,32 +50,34 @@
         <section class="panel">
           <div class="table-meta">
             <p id="results-summary">Loading quizzes...</p>
-            <button id="reset-filters" class="secondary-button" type="button">Reset filters</button>
+            <button id="reset-filters" class="secondary-button" type="button" data-i18n="resetFilters">Reset filters</button>
           </div>
 
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Quiz name</th>
+                  <th data-i18n="dateColumn">Date</th>
+                  <th data-i18n="quizNameColumn">Quiz name</th>
                 </tr>
               </thead>
               <tbody id="quiz-table-body"></tbody>
             </table>
           </div>
 
-          <p id="empty-state" class="empty-state" hidden>No quizzes match the current filters.</p>
+          <p id="empty-state" class="empty-state" hidden data-i18n="noQuizzes">No quizzes match the current filters.</p>
 
           <footer class="pagination">
-            <button id="prev-page" class="secondary-button" type="button">Previous</button>
+            <button id="prev-page" class="secondary-button" type="button" data-i18n="previous">Previous</button>
             <span id="page-label">Page 1</span>
-            <button id="next-page" class="secondary-button" type="button">Next</button>
+            <button id="next-page" class="secondary-button" type="button" data-i18n="next">Next</button>
           </footer>
         </section>
       </section>
     </main>
 
+    <script src="./translations.js" defer></script>
+    <script src="./i18n.js" defer></script>
     <script src="./folder.js" defer></script>
   </body>
 </html>

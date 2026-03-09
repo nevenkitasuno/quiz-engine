@@ -43,6 +43,28 @@ select {
   padding: 2rem 0 3rem;
 }
 
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--muted);
+}
+
+.language-switcher select {
+  min-height: 38px;
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  color: var(--ink);
+  background: #0f141c;
+}
+
 .page-header {
   margin-bottom: 1.5rem;
 }

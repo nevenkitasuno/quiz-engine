@@ -14,7 +14,7 @@ const elements = {
 async function loadManifest() {
   const response = await fetch("./data/quizzes.json", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error("Unable to load quiz manifest.");
+    throw new Error(window.I18n.t("manifestLoadError"));
   }
 
   const manifest = await response.json();
@@ -32,6 +32,7 @@ function applyFilters() {
 
 function renderTable() {
   const totalItems = state.filteredFolders.length;
+  document.title = window.I18n.t("indexTitle");
 
   elements.tableBody.innerHTML = state.filteredFolders
     .map(
@@ -49,7 +50,7 @@ function renderTable() {
     .join("");
 
   elements.emptyState.hidden = totalItems !== 0;
-  elements.resultsSummary.textContent = `${totalItems} folder${totalItems === 1 ? "" : "s"} found`;
+  elements.resultsSummary.textContent = window.I18n.t("folderFound", { count: totalItems });
 }
 
 function resetFilters() {
@@ -66,12 +67,13 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+window.I18n.init();
 elements.searchInput.addEventListener("input", applyFilters);
 elements.resetFilters.addEventListener("click", resetFilters);
+window.addEventListener("languagechange", applyFilters);
 
 loadManifest().catch((error) => {
   elements.resultsSummary.textContent = error.message;
   elements.emptyState.hidden = false;
-  elements.emptyState.textContent =
-    "Run the manifest generator after adding quiz files, then serve this folder with a local static server.";
+  elements.emptyState.textContent = window.I18n.t("manifestLoadError");
 });

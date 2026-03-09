@@ -27,22 +27,22 @@ async function loadFolder() {
   const params = new URLSearchParams(window.location.search);
   const folderId = params.get("folder");
   if (!folderId) {
-    throw new Error("Missing folder parameter.");
+    throw new Error(window.I18n.t("missingFolderParameter"));
   }
 
   const response = await fetch("./data/quizzes.json", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error("Unable to load quiz manifest.");
+    throw new Error(window.I18n.t("manifestLoadError"));
   }
 
   const manifest = await response.json();
   const folder = (manifest.folders ?? []).find((entry) => entry.id === folderId);
   if (!folder) {
-    throw new Error("Selected folder was not found.");
+    throw new Error(window.I18n.t("folderNotFound"));
   }
 
   state.folder = folder;
-  document.title = `${folder.name} | Folder Quizzes`;
+  document.title = window.I18n.t("folderPageTitle", { name: folder.name });
   elements.folderTitle.textContent = folder.name;
   elements.folderContent.hidden = false;
   applyFilters();
@@ -71,6 +71,7 @@ function renderTable() {
   const totalItems = state.filteredQuizzes.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
   state.currentPage = Math.min(state.currentPage, totalPages);
+  document.title = window.I18n.t("folderPageTitle", { name: state.folder.name });
 
   const start = (state.currentPage - 1) * PAGE_SIZE;
   const items = state.filteredQuizzes.slice(start, start + PAGE_SIZE);
@@ -91,8 +92,11 @@ function renderTable() {
     .join("");
 
   elements.emptyState.hidden = totalItems !== 0;
-  elements.resultsSummary.textContent = `${totalItems} quiz${totalItems === 1 ? "" : "zes"} found`;
-  elements.pageLabel.textContent = `Page ${state.currentPage} of ${totalPages}`;
+  elements.resultsSummary.textContent = window.I18n.t("quizFound", { count: totalItems });
+  elements.pageLabel.textContent = window.I18n.t("pageLabel", {
+    current: state.currentPage,
+    total: totalPages,
+  });
   elements.prevPage.disabled = state.currentPage === 1;
   elements.nextPage.disabled = state.currentPage === totalPages || totalItems === 0;
 }
@@ -125,6 +129,7 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+window.I18n.init();
 elements.searchInput.addEventListener("input", applyFilters);
 elements.dateFrom.addEventListener("change", applyFilters);
 elements.dateTo.addEventListener("change", applyFilters);
@@ -132,9 +137,14 @@ elements.sortOrder.addEventListener("change", applyFilters);
 elements.resetFilters.addEventListener("click", resetFilters);
 elements.prevPage.addEventListener("click", () => changePage(-1));
 elements.nextPage.addEventListener("click", () => changePage(1));
+window.addEventListener("languagechange", () => {
+  if (state.folder) {
+    renderTable();
+  }
+});
 
 loadFolder().catch((error) => {
-  elements.folderTitle.textContent = "Folder unavailable";
+  elements.folderTitle.textContent = window.I18n.t("folderUnavailable");
   elements.folderError.hidden = false;
   elements.folderError.textContent = error.message;
 });
