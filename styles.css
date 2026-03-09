@@ -80,6 +80,10 @@ select {
   margin-bottom: 1.5rem;
 }
 
+.controls--single {
+  grid-template-columns: minmax(240px, 420px);
+}
+
 .field {
   display: flex;
   flex-direction: column;

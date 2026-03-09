@@ -2,9 +2,11 @@
 
 This project is a lightweight static website built with vanilla HTML, CSS, and JavaScript.
 
+The main page lists quiz folders. Opening a folder shows that folder's quizzes with search, date range filters, date sorting, and pagination.
+
 ## Quiz format
 
-Put quiz files into [`quizzes/`](/Users/nevenkitasuno/my-crate/unencr/published/it/quiz-engine/quizzes) using this format:
+Put quiz files into folder subdirectories inside [`quizzes/`](/Users/nevenkitasuno/my-crate/unencr/published/it/quiz-engine/quizzes), for example `quizzes/math/math-test.txt`.
 
 ```txt
 Quiz name

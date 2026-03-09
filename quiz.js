@@ -13,7 +13,11 @@ async function loadQuiz() {
     throw new Error("Missing quiz file parameter.");
   }
 
-  const response = await fetch(`./quizzes/${encodeURIComponent(file)}`, { cache: "no-store" });
+  if (file.includes("..")) {
+    throw new Error("Invalid quiz path.");
+  }
+
+  const response = await fetch(`./quizzes/${file}`, { cache: "no-store" });
   if (!response.ok) {
     throw new Error("Unable to load the selected quiz.");
   }

@@ -1,11 +1,18 @@
 {
-  "quizzes": [
+  "folders": [
     {
-      "file": "math-test.txt",
-      "name": "Math test",
-      "rawDate": "2022.04.18",
-      "isoDate": "2022-04-18",
-      "displayDate": "2022-04-18"
+      "id": "math",
+      "name": "math",
+      "quizzes": [
+        {
+          "file": "math-test.txt",
+          "path": "math/math-test.txt",
+          "name": "Math test",
+          "rawDate": "2022.04.18",
+          "isoDate": "2022-04-18",
+          "displayDate": "2022-04-18"
+        }
+      ]
     }
   ]
 }
