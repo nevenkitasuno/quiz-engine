@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Take Quiz</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <p><a class="back-link" href="./index.html">← Back to quiz catalog</a></p>
+
+      <section class="panel">
+        <div id="quiz-header">
+          <p class="eyebrow">Quiz</p>
+          <h1 id="quiz-title">Loading...</h1>
+          <p id="quiz-date" class="subtitle"></p>
+        </div>
+
+        <p id="quiz-error" class="empty-state" hidden></p>
+
+        <form id="quiz-form" hidden>
+          <div id="quiz-questions" class="quiz-questions"></div>
+          <div class="submit-row">
+            <button class="primary-button" type="submit">Finish quiz</button>
+          </div>
+        </form>
+
+        <section id="quiz-results" hidden></section>
+      </section>
+    </main>
+
+    <script src="./quiz.js" defer></script>
+  </body>
+</html>

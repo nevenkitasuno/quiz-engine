@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Catalog</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Static quiz website</p>
+          <h1>Quiz Catalog</h1>
+          <p class="subtitle">Browse quizzes from text files, filter by date, and start any quiz.</p>
+        </div>
+      </header>
+
+      <section class="panel controls">
+        <label class="field">
+          <span>Search by name</span>
+          <input id="search-input" type="search" placeholder="Type part of a quiz name" />
+        </label>
+
+        <label class="field">
+          <span>From date</span>
+          <input id="date-from" type="date" />
+        </label>
+
+        <label class="field">
+          <span>To date</span>
+          <input id="date-to" type="date" />
+        </label>
+
+        <label class="field">
+          <span>Sort by date</span>
+          <select id="sort-order">
+            <option value="desc">Newest first</option>
+            <option value="asc">Oldest first</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel">
+        <div class="table-meta">
+          <p id="results-summary">Loading quizzes...</p>
+          <button id="reset-filters" class="secondary-button" type="button">Reset filters</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Quiz name</th>
+              </tr>
+            </thead>
+            <tbody id="quiz-table-body"></tbody>
+          </table>
+        </div>
+
+        <p id="empty-state" class="empty-state" hidden>No quizzes match the current filters.</p>
+
+        <footer class="pagination">
+          <button id="prev-page" class="secondary-button" type="button">Previous</button>
+          <span id="page-label">Page 1</span>
+          <button id="next-page" class="secondary-button" type="button">Next</button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
