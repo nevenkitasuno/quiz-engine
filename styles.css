@@ -1,15 +1,15 @@
 :root {
-  color-scheme: light;
-  --bg: #f4f1ea;
-  --panel: #fffdf8;
-  --panel-border: #d7cfbf;
-  --ink: #1f2933;
-  --muted: #5f6c7b;
-  --accent: #356859;
-  --accent-strong: #274d42;
-  --danger: #b84a4a;
-  --success: #2f7d4a;
-  --shadow: 0 18px 40px rgba(31, 41, 51, 0.08);
+  color-scheme: dark;
+  --bg: #0d1117;
+  --panel: #151b23;
+  --panel-border: #2a3442;
+  --ink: #edf2f7;
+  --muted: #9aa7b6;
+  --accent: #4f8fba;
+  --accent-strong: #8ecae6;
+  --danger: #ff7b72;
+  --success: #7ee787;
+  --shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -22,8 +22,9 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top, rgba(217, 189, 136, 0.28), transparent 32%),
-    linear-gradient(180deg, #f8f3ea 0%, var(--bg) 100%);
+    radial-gradient(circle at top, rgba(79, 143, 186, 0.22), transparent 28%),
+    radial-gradient(circle at 20% 80%, rgba(142, 202, 230, 0.08), transparent 22%),
+    linear-gradient(180deg, #081018 0%, var(--bg) 100%);
 }
 
 a {
@@ -101,7 +102,8 @@ select {
   border: 1px solid var(--panel-border);
   border-radius: 10px;
   padding: 0.65rem 0.8rem;
-  background: #fff;
+  color: var(--ink);
+  background: #0f141c;
 }
 
 .table-meta,
@@ -126,7 +128,7 @@ table {
 th,
 td {
   padding: 0.85rem 0.5rem;
-  border-bottom: 1px solid #ece5d8;
+  border-bottom: 1px solid #223040;
   text-align: left;
 }
 
@@ -160,7 +162,7 @@ tbody tr:last-child td {
 
 .secondary-button {
   color: var(--ink);
-  background: #f8f4eb;
+  background: #1b2430;
   border-color: var(--panel-border);
 }
 
@@ -190,10 +192,10 @@ tbody tr:last-child td {
 }
 
 .question-card {
-  border: 1px solid #e5ddcf;
+  border: 1px solid #223040;
   border-radius: 16px;
   padding: 1rem;
-  background: #fff;
+  background: #0f141c;
 }
 
 .question-card h2 {
@@ -219,11 +221,11 @@ tbody tr:last-child td {
 }
 
 .answer-option.correct {
-  background: rgba(47, 125, 74, 0.12);
+  background: rgba(126, 231, 135, 0.16);
 }
 
 .answer-option.wrong {
-  background: rgba(184, 74, 74, 0.12);
+  background: rgba(255, 123, 114, 0.16);
 }
 
 .question-status {
@@ -242,7 +244,7 @@ tbody tr:last-child td {
 #quiz-results {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #ece5d8;
+  border-top: 1px solid #223040;
 }
 
 @media (max-width: 640px) {
