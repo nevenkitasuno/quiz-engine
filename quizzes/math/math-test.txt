@@ -1,6 +1,11 @@
 Math test
 2022.04.18
 
+Match each number to it's kind
+- 80 :: even
+- -9 :: negative
+- 7 :: prime
+
 How much is 2 + 2 ?
 - 1
 - 2

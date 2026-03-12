@@ -15,9 +15,14 @@ Quiz name
 Question text
 - wrong answer
 + right answer
+
+Matching question
+- left item :: right item
+- another left :: another right
 ```
 
 Multiple `+` answers are allowed for questions with more than one correct choice.
+Matching questions use `- left :: right` lines.
 
 ## Refresh quiz list
 
